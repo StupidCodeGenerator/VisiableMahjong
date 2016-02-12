@@ -1,0 +1,6 @@
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\Content\th.xnb
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\VisibleMahjone.exe
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\VisibleMahjone.pdb
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\obj\x86\Debug\VisibleMahjone.exe
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\obj\x86\Debug\VisibleMahjone.pdb
