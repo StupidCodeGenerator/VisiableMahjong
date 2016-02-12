@@ -71,9 +71,9 @@ namespace VisibleMahjong {
                     deck.RemoveAt(0);
                 }
             }
-            foreach (Agent a in agents) {
-                a.holdingCards.Sort();
-            }
+            //foreach (Agent a in agents) {
+            //    a.holdingCards.Sort();
+            //}
             NextStep();
         }
 
@@ -159,7 +159,6 @@ namespace VisibleMahjong {
         /// 结束牌局
         /// </summary>
         public void End(string discription) {
-            Form1.instance.ShowEnd(discription);
             StartNewRound();
         }
 
@@ -244,7 +243,7 @@ namespace VisibleMahjong {
             currentState = ManagerState.ASK_DIAN_PAO;
             targetCard = playCard;
             agents[currentAgentIndex].holdingCards.Remove(playCard);
-            agents[currentAgentIndex].playedCards.Add(playCard);
+            //agents[currentAgentIndex].playedCards.Add(playCard);
             agents[currentAgentIndex].holdingCards.Sort();
             currentAgentIndex = GetNextIndex(agentIndex);
         }

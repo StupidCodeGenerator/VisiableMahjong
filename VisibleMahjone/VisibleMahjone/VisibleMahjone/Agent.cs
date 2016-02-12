@@ -8,22 +8,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace VisibleMahjong {
+
     public class Agent {
         public Manager manager; // manager的引用，方便回调
         public List<Card> holdingCards;
-        public List<Card> playedCards;
+        // 如果是所有人都明牌的话，打出去的牌就没有任何意义。
+        // 只要能显示出当前打出的这一张牌就可以了
+        //public List<Card> playedCards;
         public bool isDealer; // 庄家最先说话，并且在一开始多抓一张牌
         public int agentIndex;
         public Agent(int agentIndex, Manager manager) {
             this.manager = manager;
             holdingCards = new List<Card>();
-            playedCards = new List<Card>();
+            //playedCards = new List<Card>();
             this.agentIndex = agentIndex;
         }
-        
-        public virtual void Paint() {
+
+        /// <summary>
+        /// 根据AgentIndex区分绘制方向
+        /// 0,1,2为左，中，右
+        /// 3表示玩家
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public virtual void Paint(SpriteBatch spriteBatch, float leftX, float topY) {
+            switch (agentIndex) {
+                case 0:
+                    for (int i = 0; i < holdingCards.Count; i++) {
+                        holdingCards[i].Paint(spriteBatch, leftX, topY + i * (Card.WIDTH + 1), (float)(Math.PI / 2));
+                    }
+                    break;
+                case 1:
+                    for (int i = 0; i < holdingCards.Count; i++) {
+                        holdingCards[i].Paint(spriteBatch, leftX + i * (Card.WIDTH + 1), topY, 0f);
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < holdingCards.Count; i++) {
+                        holdingCards[i].Paint(spriteBatch, leftX, topY + i * (Card.WIDTH + 1), (float)(Math.PI / 2));
+                    }
+                    break;
+            }
         }
 
         /// <summary>

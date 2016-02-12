@@ -10,7 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace VisibleMahjong {
     public class Agent_Human : Agent {
         public int choosedIndex = -1; // 当前玩家选中的牌的Index
@@ -29,14 +30,6 @@ namespace VisibleMahjong {
                 if (rec.Contains(new Point(x, y))) {
                     choosedIndex = i;
                 }
-            }
-        }
-
-        public override void Paint(Graphics g) {
-            base.Paint(g);
-            if (choosedIndex >= 0) {
-                g.DrawRectangle(new Pen(new SolidBrush(Color.Yellow), 3),
-                    new Rectangle(choosedIndex * 34 + 10, 40, 33, 42));
             }
         }
 

@@ -17,6 +17,8 @@ namespace VisibleMahjong {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Manager manager = null;
+
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -31,7 +33,8 @@ namespace VisibleMahjong {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-
+            manager = new Manager();
+            manager.StartNewRound();
             base.Initialize();
         }
 
@@ -79,7 +82,9 @@ namespace VisibleMahjong {
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            Card.DrawCard(spriteBatch, 100f, 100f, CardName.b1);
+            manager.agents[0].Paint(spriteBatch, Card.HEIGHT, 0);
+            manager.agents[1].Paint(spriteBatch, 130, 0);
+            manager.agents[2].Paint(spriteBatch, 800, 0);
             spriteBatch.End();
             base.Draw(gameTime);
         }

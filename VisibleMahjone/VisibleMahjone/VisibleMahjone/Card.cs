@@ -16,7 +16,7 @@ namespace VisibleMahjong {
     /// <summary>
     /// nil means null
     /// </summary>
-    public enum CardName { 
+    public enum CardName {
         b1, b2, b3, b4, b5, b6, b7, b8, b9,
         t1, t2, t3, t4, t5, t6, t7, t8, t9,
         w1, w2, w3, w4, w5, w6, w7, w8, w9,
@@ -25,6 +25,9 @@ namespace VisibleMahjong {
     }
 
     public class Card {
+
+        public static int WIDTH = 33;
+        public static int HEIGHT = 42;
 
         public static Texture2D cardTexture = null;
 
@@ -68,8 +71,14 @@ namespace VisibleMahjong {
         public CardName name;
 
 
-        public static void DrawCard(SpriteBatch spriteBatch, float x, float y, CardName name) {
-            spriteBatch.Draw(cardTexture, new Vector2(x, y), MOJANG_RECT_DIC[name], Color.White); 
+        public static void DrawCard(SpriteBatch spriteBatch, float x, float y, CardName name, float rotate) {
+            Rectangle rect = MOJANG_RECT_DIC[name];
+            spriteBatch.Draw(cardTexture, new Vector2(x, y), rect, Color.White, rotate,
+                new Vector2(0f, 0f), 1f, SpriteEffects.None, 0f);
+        }
+
+        public void Paint(SpriteBatch spriteBatch, float x, float y, float rotate) {
+            DrawCard(spriteBatch, x, y, name, rotate);
         }
 
         public Card(CardName name) {
@@ -79,6 +88,5 @@ namespace VisibleMahjong {
         public Card(int index) {
             this.name = (CardName)(index / 4);
         }
-
     }
 }
