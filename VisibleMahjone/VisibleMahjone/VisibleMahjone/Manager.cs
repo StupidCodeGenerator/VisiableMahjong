@@ -23,9 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace VisibleMahjong {
-  
+
     public enum ManagerState {
         ASK_PICK,      // 抓牌
         ASK_ZI_MO,     // 自摸
@@ -37,6 +43,10 @@ namespace VisibleMahjong {
     }
 
     public class Manager {
+
+        public int mouseX = 0;
+        public int mouseY = 0;
+
         public ManagerState currentState;
         public List<Agent> agents = null;
         /// <summary>
@@ -50,24 +60,33 @@ namespace VisibleMahjong {
         public int targetAgentIndex;
         public List<Card> deck;
         public Card targetCard;
+
+        Texture2D textureButtonPlay = null;
+        SimpleButton buttonPlay = null;
+
+        public Manager(Game1 game) {
+            textureButtonPlay = game.Content.Load<Texture2D>("buttonPlay");
+            buttonPlay = new SimpleButton(500, 400, textureButtonPlay);
+        }
+
         public void StartNewRound() {
             currentAgentIndex = 0;
             targetCard = null;
             agents = new List<Agent>();
             // If you want to add a human player, change the code below...
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 3; i++) {
                 agents.Add(new Agent_AI(i, this));
             }
-            //agents.Add(new Agent_Human(3, this));
+            agents.Add(new Agent_Human(3, this));
             deck = GetShuffledDeck();
             // For each agent pick 13 cards from the deck and remove them from the deck
             for (int i = 0; i < agents.Count; i++) {
                 for (int j = 0; j < 13; j++) {
-                    agents[i].holdingCards.Add(deck[0]);
+                    agents[i].cards.Add(deck[0]);
                     deck.RemoveAt(0);
                 }
                 if (agents[i].isDealer) {
-                    agents[i].holdingCards.Add(deck[0]);
+                    agents[i].cards.Add(deck[0]);
                     deck.RemoveAt(0);
                 }
             }
@@ -144,6 +163,42 @@ namespace VisibleMahjong {
                         agents[nextIndex].AskForChi(targetCard);
                     }
                     break;
+            }
+        }
+
+        public void Paint(SpriteBatch spriteBatch, SpriteFont font) {
+            agents[0].Paint(spriteBatch, 0, 0);
+            agents[1].Paint(spriteBatch, 0, Card.HEIGHT + 20);
+            agents[2].Paint(spriteBatch, 0, 2 * Card.HEIGHT + 40);
+            agents[3].Paint(spriteBatch, 0, 3 * Card.HEIGHT + 60);
+            spriteBatch.DrawString(font,
+                "------------------------------------------------------------------------",
+                new Microsoft.Xna.Framework.Vector2(0, Card.HEIGHT - 5),
+                Microsoft.Xna.Framework.Color.Yellow);
+            spriteBatch.DrawString(font,
+                "------------------------------------------------------------------------",
+                new Microsoft.Xna.Framework.Vector2(0,  2 * Card.HEIGHT + 15),
+                Microsoft.Xna.Framework.Color.Yellow);
+            spriteBatch.DrawString(font,
+                "------------------------------------------------------------------------",
+                new Microsoft.Xna.Framework.Vector2(0, 3 * Card.HEIGHT + 35),
+                Microsoft.Xna.Framework.Color.Yellow);
+            spriteBatch.DrawString(font,
+                "========================================================================",
+                new Microsoft.Xna.Framework.Vector2(0, 4 * Card.HEIGHT + 55),
+                Microsoft.Xna.Framework.Color.Yellow);
+            buttonPlay.Paint(spriteBatch);
+            spriteBatch.End();
+        }
+
+        public void OnMouseState(MouseState mouseState) {
+            if (mouseState.LeftButton == ButtonState.Pressed) {
+                mouseX = mouseState.X;
+                mouseY = mouseState.Y;
+                foreach (Agent agent in agents) {
+                    agent.OnClick(mouseX, mouseY);
+                }
+                buttonPlay.OnClick(mouseX, mouseY);
             }
         }
 
@@ -242,9 +297,9 @@ namespace VisibleMahjong {
         public void AskForPlayCallback(Card playCard, int agentIndex) {
             currentState = ManagerState.ASK_DIAN_PAO;
             targetCard = playCard;
-            agents[currentAgentIndex].holdingCards.Remove(playCard);
+            agents[currentAgentIndex].cards.Remove(playCard);
             //agents[currentAgentIndex].playedCards.Add(playCard);
-            agents[currentAgentIndex].holdingCards.Sort();
+            agents[currentAgentIndex].cards.Sort();
             currentAgentIndex = GetNextIndex(agentIndex);
         }
     }

@@ -5,3 +5,5 @@ D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\obj\x86\D
 D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\obj\x86\Debug\VisibleMahjone.exe
 D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\obj\x86\Debug\VisibleMahjone.pdb
 D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\obj\x86\Debug\VisibleMahjong.csprojResolveAssemblyReference.cache
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\Content\common.xnb
+D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\Content\buttonPlay.xnb

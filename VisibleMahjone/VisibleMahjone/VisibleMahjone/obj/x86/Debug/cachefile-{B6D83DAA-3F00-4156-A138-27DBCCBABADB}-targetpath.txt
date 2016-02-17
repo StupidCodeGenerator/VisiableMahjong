@@ -1,1 +1,3 @@
 Content\th.xnb
+Content\common.xnb
+Content\buttonPlay.xnb

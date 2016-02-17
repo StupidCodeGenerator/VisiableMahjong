@@ -16,6 +16,7 @@ namespace VisibleMahjong {
     public class Game1 : Microsoft.Xna.Framework.Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont font;
 
         Manager manager = null;
 
@@ -33,7 +34,7 @@ namespace VisibleMahjong {
         /// </summary>
         protected override void Initialize() {
             // TODO: Add your initialization logic here
-            manager = new Manager();
+            manager = new Manager(this);
             manager.StartNewRound();
             base.Initialize();
         }
@@ -48,6 +49,7 @@ namespace VisibleMahjong {
 
             // TODO: use this.Content to load your game content here
             Card.cardTexture = Content.Load<Texture2D>("th");
+            font = Content.Load<SpriteFont>("common");
         }
 
         /// <summary>
@@ -67,9 +69,9 @@ namespace VisibleMahjong {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            MouseState mouseState = Mouse.GetState();
+            manager.OnMouseState(mouseState);
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -82,10 +84,7 @@ namespace VisibleMahjong {
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            manager.agents[0].Paint(spriteBatch, Card.HEIGHT, 0);
-            manager.agents[1].Paint(spriteBatch, 130, 0);
-            manager.agents[2].Paint(spriteBatch, 800, 0);
-            spriteBatch.End();
+            manager.Paint(spriteBatch,font);
             base.Draw(gameTime);
         }
     }

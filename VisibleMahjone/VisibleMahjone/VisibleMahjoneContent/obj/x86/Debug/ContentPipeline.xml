@@ -10,6 +10,24 @@
       <Output>D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\Content\th.xnb</Output>
       <Time>2016-02-04T18:44:57.5239528+08:00</Time>
     </Item>
+    <Item>
+      <Source>common.spritefont</Source>
+      <Name>common</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\Content\common.xnb</Output>
+      <Time>2016-02-17T20:06:27.0775648+08:00</Time>
+    </Item>
+    <Item>
+      <Source>buttonPlay.png</Source>
+      <Name>buttonPlay</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Github\VisiableMahjong\VisibleMahjone\VisibleMahjone\VisibleMahjone\bin\x86\Debug\Content\buttonPlay.xnb</Output>
+      <Time>2016-02-17T21:03:06.6830111+08:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

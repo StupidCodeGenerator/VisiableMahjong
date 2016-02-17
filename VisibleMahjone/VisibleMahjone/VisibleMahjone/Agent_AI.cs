@@ -31,7 +31,7 @@ namespace VisibleMahjong {
         }
 
         public override void AskForPlay() {
-            manager.AskForPlayCallback(this.holdingCards[0], this.agentIndex);
+            manager.AskForPlayCallback(this.cards[0], this.agentIndex);
         }
     }
 }

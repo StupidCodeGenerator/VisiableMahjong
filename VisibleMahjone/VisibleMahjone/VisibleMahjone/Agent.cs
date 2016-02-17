@@ -15,7 +15,16 @@ namespace VisibleMahjong {
 
     public class Agent {
         public Manager manager; // manager的引用，方便回调
-        public List<Card> holdingCards;
+        public float leftX = int.MinValue;
+        public float topY = int.MinValue;
+        public List<Card> cards;
+        /// <summary>
+        /// 选择的是那一张牌
+        /// 如果是碰，就选择碰的两张牌
+        /// 如果是吃，唯一的情况下就选择唯一的两张，
+        /// 如果不唯一，就点一次换一手
+        /// </summary>
+        public int choosedIndex = -1;
         // 如果是所有人都明牌的话，打出去的牌就没有任何意义。
         // 只要能显示出当前打出的这一张牌就可以了
         //public List<Card> playedCards;
@@ -23,34 +32,36 @@ namespace VisibleMahjong {
         public int agentIndex;
         public Agent(int agentIndex, Manager manager) {
             this.manager = manager;
-            holdingCards = new List<Card>();
+            cards = new List<Card>();
             //playedCards = new List<Card>();
             this.agentIndex = agentIndex;
         }
 
         /// <summary>
         /// 根据AgentIndex区分绘制方向
-        /// 0,1,2为左，中，右
-        /// 3表示玩家
+        /// This is only a prototype so there's no need to manage them in 4 direction.
+        /// All in all the UI will be re-designed if I will made more
         /// </summary>
         /// <param name="spriteBatch"></param>
         public virtual void Paint(SpriteBatch spriteBatch, float leftX, float topY) {
-            switch (agentIndex) {
-                case 0:
-                    for (int i = 0; i < holdingCards.Count; i++) {
-                        holdingCards[i].Paint(spriteBatch, leftX, topY + i * (Card.WIDTH + 1), (float)(Math.PI / 2));
-                    }
-                    break;
-                case 1:
-                    for (int i = 0; i < holdingCards.Count; i++) {
-                        holdingCards[i].Paint(spriteBatch, leftX + i * (Card.WIDTH + 1), topY, 0f);
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < holdingCards.Count; i++) {
-                        holdingCards[i].Paint(spriteBatch, leftX, topY + i * (Card.WIDTH + 1), (float)(Math.PI / 2));
-                    }
-                    break;
+            this.leftX = leftX;
+            this.topY = topY;
+            for (int i = 0; i < cards.Count; i++) {
+                if (i == choosedIndex) {
+                    cards[i].Paint(spriteBatch, leftX + i * (Card.WIDTH + 1), topY - 5, 0f);
+                } else {
+                    cards[i].Paint(spriteBatch, leftX + i * (Card.WIDTH + 1), topY, 0f);
+                }
+            }
+        }
+
+        public virtual void OnClick(int x, int y) {
+            this.choosedIndex = -1;
+            if (y > topY && y < topY + Card.HEIGHT) {
+                int index = (int)(x - leftX) / Card.WIDTH;
+                if (index >= 0 && index < cards.Count) {
+                    this.choosedIndex = index;
+                }
             }
         }
 
@@ -58,7 +69,7 @@ namespace VisibleMahjong {
         /// 让Agent抓一张牌。这张牌会添加到手牌中
         /// </summary>
         public void PickCard(Card c) {
-            this.holdingCards.Add(c);
+            this.cards.Add(c);
         }
 
         /// <summary>
