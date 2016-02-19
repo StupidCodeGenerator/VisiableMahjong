@@ -77,8 +77,18 @@ namespace VisibleMahjong {
                 new Vector2(0f, 0f), 1f, SpriteEffects.None, 0f);
         }
 
+        public static void DrawCard(SpriteBatch spriteBatch, float x, float y, CardName name, float rotate, float scale) {
+            Rectangle rect = MOJANG_RECT_DIC[name];
+            spriteBatch.Draw(cardTexture, new Vector2(x, y), rect, Color.White, rotate,
+                new Vector2(0f, 0f), scale, SpriteEffects.None, 0f);
+        }
+
         public void Paint(SpriteBatch spriteBatch, float x, float y, float rotate) {
             DrawCard(spriteBatch, x, y, name, rotate);
+        }
+
+        public void Paint(SpriteBatch spriteBatch, float x, float y, float rotate, float scale) {
+            DrawCard(spriteBatch, x, y, name, rotate, scale);
         }
 
         public Card(CardName name) {

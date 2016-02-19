@@ -54,7 +54,10 @@ namespace VisibleMahjong {
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Agent出牌
+        /// </summary>
         public virtual void OnClick(int x, int y) {
             this.choosedIndex = -1;
             if (y > topY && y < topY + Card.HEIGHT) {

@@ -171,13 +171,22 @@ namespace VisibleMahjong {
             agents[1].Paint(spriteBatch, 0, Card.HEIGHT + 20);
             agents[2].Paint(spriteBatch, 0, 2 * Card.HEIGHT + 40);
             agents[3].Paint(spriteBatch, 0, 3 * Card.HEIGHT + 60);
+
+            for (int i = 0; i < deck.Count && i < 15; i++) {
+                float scale = 1f - 0.02f * i;
+                if (scale < 0.1) {
+                    scale = 0.1f;
+                }
+                deck[i].Paint(spriteBatch, 100 + i * (Card.WIDTH + 1), 300, 0f, scale);
+            }
+
             spriteBatch.DrawString(font,
                 "------------------------------------------------------------------------",
                 new Microsoft.Xna.Framework.Vector2(0, Card.HEIGHT - 5),
                 Microsoft.Xna.Framework.Color.Yellow);
             spriteBatch.DrawString(font,
                 "------------------------------------------------------------------------",
-                new Microsoft.Xna.Framework.Vector2(0,  2 * Card.HEIGHT + 15),
+                new Microsoft.Xna.Framework.Vector2(0, 2 * Card.HEIGHT + 15),
                 Microsoft.Xna.Framework.Color.Yellow);
             spriteBatch.DrawString(font,
                 "------------------------------------------------------------------------",
